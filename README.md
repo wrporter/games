@@ -1,9 +1,6 @@
-Webpack + TypeScript starter
+Stratego 2
 ---
 
-![example](https://juristr.com/blog/assets/imgs/meetup-intro-angular2/transpiling.png)
-
-Это далеко не самый сложный starter kit. Цель его состоит в том, чтобы получить простейшую возможную настройку для работы с Webpack и TypeScript. Развернув себе этот репозиторий, вы сможете дополнить теми инструментами, которые вам нужны, например, SASS-компиляцию, Gzip, Brotli-компрессию, дополнить тестами свое окружение.
 
 ## Features
 
@@ -15,23 +12,14 @@ Webpack + TypeScript starter
 
 ## How to use
 
-Просто склонируйте репозиторий, а дальше:
 
 ```bash
-# Переходим в директорию с проектом
-$ cd <your-project-name>
+npm i
+npm run serve
 
-# Удаляем `.git` директорию
+# Build Dev: 
+npm run build
 
-# Установка зависимостей
-$ npm i
-
-# Запуск сборки приложения и веб-сервера:
-$ npm serve
-
-# Сборка приложения без минификации: 
-$ npm run build
-
-# Сборка приложения с минификацией: 
-$ npm run build:prod
+# Build Prod:
+npm run build:prod
 ```

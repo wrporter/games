@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const ROOT = path.resolve( __dirname, 'src' );
-const DESTINATION = path.resolve( __dirname, 'dist' );
+const ROOT = path.resolve(__dirname, 'src');
+const DESTINATION = path.resolve(__dirname, 'dist');
 const PROD = process.env.NODE_ENV == 'production';
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     entry: {
         'main': './main.ts'
     },
-    
+
     output: {
         filename: PROD ? 'js/[name].[hash].min.js' : 'js/[name].js',
         path: DESTINATION
@@ -29,8 +29,8 @@ module.exports = {
     module: {
         rules: [
             /****************
-            * PRE-LOADERS
-            *****************/
+             * PRE-LOADERS
+             *****************/
             {
                 enforce: 'pre',
                 test: /\.js$/,
@@ -44,20 +44,20 @@ module.exports = {
             },
 
             /****************
-            * LOADERS
-            *****************/
+             * LOADERS
+             *****************/
             {
                 test: /\.ts$/,
-                exclude: [ /node_modules/ ],
+                exclude: [/node_modules/],
                 use: 'awesome-typescript-loader'
             }
         ]
     },
 
     plugins: [
-	    new HtmlWebpackPlugin({
-	      template: 'index.html'
-	    })
+        new HtmlWebpackPlugin({
+            template: 'index.html'
+        })
     ],
 
     devtool: PROD ? 'none' : 'cheap-module-source-map',
