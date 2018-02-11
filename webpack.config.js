@@ -1,10 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT = path.resolve(__dirname, 'src');
 const DESTINATION = path.resolve(__dirname, 'dist');
 const PROD = process.env.NODE_ENV == 'production';
+
+const extractLess = new ExtractTextPlugin({
+    filename: "[name].css",
+    disable: process.env.NODE_ENV === "development"
+});
 
 module.exports = {
     context: ROOT,
@@ -50,6 +56,24 @@ module.exports = {
                 test: /\.ts$/,
                 exclude: [/node_modules/],
                 use: 'awesome-typescript-loader'
+            },
+            {
+                test: /\.less$/,
+                use: extractLess.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "less-loader"
+                    }],
+                    // use style-loader in development
+                    fallback: "style-loader"
+                })
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader'
+                ]
             }
         ]
     },
@@ -57,7 +81,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html'
-        })
+        }),
+        extractLess
     ],
 
     devtool: PROD ? 'none' : 'cheap-module-source-map',

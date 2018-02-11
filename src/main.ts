@@ -1,6 +1,13 @@
-import {Person} from "./model/person";
+import "./main.less";
+import {Game} from "./stratego/game";
+import {ImageService} from "./stratego/image/images.service";
+import {SetupService} from "./stratego/setup.service";
 
-let name = window.prompt("What is your name?", "Anonymous");
-let person = new Person(name);
+const imageService = ImageService.getInstance();
 
-person.sayHello().then(() => document.getElementById("name").textContent = person.getName());
+const game = new Game(document.getElementsByClassName("board")[0] as HTMLCanvasElement,
+    new SetupService().getDefaultSetup());
+
+imageService.getPromisifiedImages().then(() => {
+    game.draw();
+});
