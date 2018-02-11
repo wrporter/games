@@ -1,5 +1,6 @@
 import "./main.less";
 import {Game} from "./stratego/game";
+import "./stratego/image/favicon.png";
 import {ImageService} from "./stratego/image/images.service";
 import {SetupService} from "./stratego/setup.service";
 

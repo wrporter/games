@@ -8,7 +8,7 @@ const DESTINATION = path.resolve(__dirname, 'dist');
 const PROD = process.env.NODE_ENV == 'production';
 
 const extractLess = new ExtractTextPlugin({
-    filename: "[name].css",
+    filename: "css/[name].css",
     disable: process.env.NODE_ENV === "development"
 });
 
@@ -58,6 +58,17 @@ module.exports = {
                 use: 'awesome-typescript-loader'
             },
             {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        publicPath: '../',
+                        outputPath: 'images/'
+                    }
+                }]
+            },
+            {
                 test: /\.less$/,
                 use: extractLess.extract({
                     use: [{
@@ -68,12 +79,6 @@ module.exports = {
                     // use style-loader in development
                     fallback: "style-loader"
                 })
-            },
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader'
-                ]
             }
         ]
     },
