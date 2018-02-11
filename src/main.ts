@@ -11,3 +11,9 @@ const game = new Game(document.getElementsByClassName("board")[0] as HTMLCanvasE
 imageService.getPromisifiedImages().then(() => {
     game.draw();
 });
+
+const startButton: HTMLButtonElement = document.getElementsByClassName("start")[0] as HTMLButtonElement;
+
+startButton.onclick = () => {
+    game.start();
+};

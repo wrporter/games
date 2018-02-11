@@ -1,4 +1,6 @@
+import {Modal} from "../modal/modal";
 import {Board} from "./board";
+import {Color} from "./color";
 import {AttackResult, Piece} from "./piece";
 import {Position} from "./position";
 
@@ -9,6 +11,7 @@ export class Game {
     private board: Board;
     private setup: Piece[][];
     private selected?: Position;
+    private turn: Color;
 
     constructor(canvas: HTMLCanvasElement, setup: Piece[][]) {
         this.canvas = canvas;
@@ -27,6 +30,15 @@ export class Game {
         };
     }
 
+    public start() {
+        this.turn = Color.Blue;
+        const modal = new Modal();
+        modal.afterClose(() => {
+            this.draw();
+        });
+        modal.show(`The game has begun! It is now ${this.turn}'s turn.`);
+    }
+
     public draw(): void {
         this.board.draw();
         this.drawPieces();
@@ -39,7 +51,11 @@ export class Game {
                     const x = colIndex * this.board.SQUARE_LENGTH;
                     const y = rowIndex * this.board.SQUARE_LENGTH;
 
-                    piece.draw(this.context, x, y);
+                    if (this.turn === piece.getColor()) {
+                        piece.draw(this.context, x, y);
+                    } else {
+                        piece.drawColor(this.context, x, y);
+                    }
                 }
             });
         });
@@ -51,14 +67,29 @@ export class Game {
                 this.movePiece(this.selected, position);
                 this.deselect();
                 this.draw();
-            } else if (this.getPiece(position)) {
+                this.endTurn();
+            } else if (this.getPiece(position) && this.getPiece(position).getColor() === this.turn) {
                 this.deselect();
                 this.draw();
                 this.select(position);
             }
-        } else if (this.getPiece(position)) {
+        } else if (this.getPiece(position) && this.getPiece(position).getColor() === this.turn) {
             this.select(position);
         }
+    }
+
+    private endTurn() {
+        const previousTurn = this.turn;
+        delete this.turn;
+        this.draw();
+        this.turn = previousTurn;
+        this.turn = this.turn === Color.Blue ? Color.Red : Color.Blue;
+
+        const modal = new Modal();
+        modal.afterClose(() => {
+            this.draw();
+        });
+        modal.show(`It is now ${this.turn}'s turn.`);
     }
 
     private getPiece(position: Position): Piece {
