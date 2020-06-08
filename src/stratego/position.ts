@@ -1,3 +1,10 @@
+export enum Direction {
+    Above = "Above",
+    Below = "Below",
+    Left = "Left",
+    Right = "Right",
+}
+
 export class Position {
     constructor(private row: number, private col: number) {
     }
@@ -53,11 +60,4 @@ export class Position {
     public equals(position: Position): boolean {
         return this.row === position.getRow() && this.col === position.getCol();
     }
-}
-
-export enum Direction {
-    Above = "Above",
-    Below = "Below",
-    Left = "Left",
-    Right = "Right",
 }

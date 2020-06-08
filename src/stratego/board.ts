@@ -12,7 +12,7 @@ export class Board {
         this.canvas = canvas;
         this.canvas.width = this.BOARD_LENGTH;
         this.canvas.height = this.BOARD_LENGTH;
-        this.context = this.canvas.getContext("2d");
+        this.context = this.canvas.getContext("2d")!;
     }
 
     public draw() {

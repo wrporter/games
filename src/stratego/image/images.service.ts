@@ -1,21 +1,26 @@
 import {Color} from "../color";
 import {Rank} from "../rank";
-import * as boardImageSrc from "./board/board.jpg";
-import * as paperImageSrc from "./board/paper.jpg";
-import * as blueImageSrc from "./piece/blue.png";
-import * as bombImageSrc from "./piece/bomb.png";
-import * as captainImageSrc from "./piece/captain.png";
-import * as colonelImageSrc from "./piece/colonel.png";
-import * as flagImageSrc from "./piece/flag.png";
-import * as generalImageSrc from "./piece/general.png";
-import * as lieutenantImageSrc from "./piece/lieutenant.png";
-import * as majorImageSrc from "./piece/major.png";
-import * as marshalImageSrc from "./piece/marshal.png";
-import * as minerImageSrc from "./piece/miner.png";
-import * as redImageSrc from "./piece/red.png";
-import * as scoutImageSrc from "./piece/scout.png";
-import * as sergeantImageSrc from "./piece/sergeant.png";
-import * as spyImageSrc from "./piece/spy.png";
+import boardImageSrc from "./board/board.jpg";
+import paperImageSrc from "./board/paper.jpg";
+import blueImageSrc from "./piece/blue.png";
+import bombImageSrc from "./piece/bomb.png";
+import captainImageSrc from "./piece/captain.png";
+import colonelImageSrc from "./piece/colonel.png";
+import flagImageSrc from "./piece/flag.png";
+import generalImageSrc from "./piece/general.png";
+import lieutenantImageSrc from "./piece/lieutenant.png";
+import majorImageSrc from "./piece/major.png";
+import marshalImageSrc from "./piece/marshal.png";
+import minerImageSrc from "./piece/miner.png";
+import redImageSrc from "./piece/red.png";
+import scoutImageSrc from "./piece/scout.png";
+import sergeantImageSrc from "./piece/sergeant.png";
+import spyImageSrc from "./piece/spy.png";
+
+export enum ImageName {
+    Board = "Board",
+    Paper = "Paper",
+}
 
 export class ImageService {
     public static getInstance() {
@@ -74,9 +79,4 @@ export class ImageService {
             this.images[name].src = url;
         }));
     }
-}
-
-export enum ImageName {
-    Board = "Board",
-    Paper = "Paper",
 }

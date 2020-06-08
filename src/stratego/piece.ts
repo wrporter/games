@@ -3,6 +3,12 @@ import {ImageService} from "./image/images.service";
 import {Direction, Position} from "./position";
 import {getRankKey, getRankValue, Rank} from "./rank";
 
+export enum AttackResult {
+    Tie = "Tie",
+    Win = "Win",
+    Lose = "Lose",
+}
+
 export class Piece {
     constructor(private rank: Rank,
                 private color: Color) {
@@ -48,7 +54,7 @@ export class Piece {
         }
     }
 
-    public getValidMovePositions(board: Piece[][], position: Position): Position[] {
+    public getValidMovePositions(board: (Piece | undefined)[][], position: Position): Position[] {
         const positions: Position[] = [];
         if (this.rank === Rank.Bomb || this.rank === Rank.Flag) {
             return positions;
@@ -62,14 +68,14 @@ export class Piece {
         return positions;
     }
 
-    private pushPositionIfValid(board: Piece[][], positions: Position[], direction: Direction,
+    private pushPositionIfValid(board: (Piece | undefined)[][], positions: Position[], direction: Direction,
                                 position: Position): void {
         if (this.rank === Rank.Scout) {
             let newPosition = position;
             while (this.isValidMovePosition(board, newPosition.getPosition(direction))) {
                 positions.push(newPosition.getPosition(direction));
                 newPosition = newPosition.getPosition(direction);
-                if (board[newPosition.getRow()][newPosition.getCol()] !== null) {
+                if (board[newPosition.getRow()][newPosition.getCol()] !== undefined) {
                     break;
                 }
             }
@@ -78,15 +84,8 @@ export class Piece {
         }
     }
 
-    private isValidMovePosition(board: Piece[][], position: Position): boolean {
+    private isValidMovePosition(board: (Piece | undefined)[][], position: Position): boolean {
         return position && position.isInBounds() && !position.isWater() &&
-            (board[position.getRow()][position.getCol()] === null ||
-                board[position.getRow()][position.getCol()].getColor() !== this.color);
+            board[position.getRow()][position.getCol()]?.getColor() !== this.color;
     }
-}
-
-export enum AttackResult {
-    Tie = "Tie",
-    Win = "Win",
-    Lose = "Lose",
 }

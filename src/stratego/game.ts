@@ -9,13 +9,14 @@ export class Game {
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
     private board: Board;
-    private setup: Piece[][];
+    private setup: (Piece | undefined)[][];
     private selected?: Position;
-    private turn: Color;
+    private turn: (Color | undefined);
 
-    constructor(canvas: HTMLCanvasElement, setup: Piece[][]) {
+    constructor(canvas: HTMLCanvasElement, setup: (Piece | undefined)[][]) {
         this.canvas = canvas;
-        this.context = canvas.getContext("2d");
+        // this.turn = Color.Blue;
+        this.context = canvas.getContext("2d")!;
         this.board = new Board(canvas);
         this.setup = setup;
         this.draw();
@@ -47,7 +48,7 @@ export class Game {
     private drawPieces(): void {
         this.setup.forEach((row, rowIndex) => {
             row.forEach((piece, colIndex) => {
-                if (piece !== null) {
+                if (piece) {
                     const x = colIndex * this.board.SQUARE_LENGTH;
                     const y = rowIndex * this.board.SQUARE_LENGTH;
 
@@ -93,11 +94,11 @@ export class Game {
     }
 
     private getPiece(position: Position): Piece {
-        return this.setup[position.getRow()][position.getCol()];
+        return this.setup[position.getRow()][position.getCol()]!;
     }
 
     private isValidMovePosition(position: Position): boolean {
-        return this.getPiece(this.selected).getValidMovePositions(this.setup, this.selected)
+        return this.getPiece(this.selected!).getValidMovePositions(this.setup, this.selected!)
             .find((validMovePosition: Position) => position.equals(validMovePosition)) !== undefined;
     }
 
@@ -135,7 +136,7 @@ export class Game {
     }
 
     private removePiece(position: Position) {
-        this.setup[position.getRow()][position.getCol()] = null;
+        this.setup[position.getRow()][position.getCol()] = undefined;
     }
 
     private deselect(): void {
