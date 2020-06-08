@@ -8,12 +8,14 @@ function App() {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const game = React.useRef<Game>();
 
-    React.useEffect(() => {
-        const imageService = ImageService.getInstance();
-        game.current = new Game(canvasRef.current!, new SetupService().getDefaultSetup());
-        imageService.getPromisifiedImages().then(() => {
-            game.current?.draw();
-        });
+    React.useLayoutEffect(() => {
+        if (canvasRef.current) {
+            const imageService = ImageService.getInstance();
+            game.current = new Game(canvasRef.current!, new SetupService().getDefaultSetup());
+            imageService.getPromisifiedImages().then(() => {
+                game.current?.draw();
+            });
+        }
     }, [game])
 
     const handleStart = () => {
@@ -26,7 +28,7 @@ function App() {
             <div style={{marginBottom: 12}}>
                 <button onClick={handleStart}>Start</button>
             </div>
-            <canvas ref={canvasRef}/>
+            <canvas ref={canvasRef} />
         </div>
     );
 }

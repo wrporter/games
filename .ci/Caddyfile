@@ -1,0 +1,10 @@
+localhost
+
+file_server browse {
+    root /usr/share/caddy
+}
+encode gzip
+
+log {
+    output stdout
+}

@@ -19,6 +19,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "ci": "react-scripts test --watchAll=false && npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

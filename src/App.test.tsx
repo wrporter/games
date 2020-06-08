@@ -2,8 +2,23 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+jest.mock("./stratego/image/images.service", () => ({
+  ImageService: class {
+      public static getInstance() {
+        return {
+          getPromisifiedImages: jest.fn().mockResolvedValue("success"),
+          getImage: jest.fn(),
+          getColorImage: jest.fn(),
+          getRankImage: jest.fn(),
+        }
+      }
+    }
+}));
+jest.mock("./stratego/game");
+jest.mock("./stratego/setup.service");
+
+test('renders a canvas', () => {
+  const { container } = render(<App />);
+  const canvas = container.querySelector('canvas');
+  expect(canvas).toBeInTheDocument();
 });
