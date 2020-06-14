@@ -25,4 +25,4 @@ FROM caddy:2-alpine AS server
 LABEL maintainer="wesleyrporter@gmail.com"
 
 COPY .ci/Caddyfile /etc/caddy/Caddyfile
-COPY --from=static /src/build /usr/share/caddy
+COPY --from=static /src/build /var/www/site
