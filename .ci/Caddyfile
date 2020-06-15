@@ -1,4 +1,4 @@
-http://0.0.0.0, http://localhost, http://127.0.0.1, http://games.sunbeam.cf
+http://localhost, http://127.0.0.1, http://games.sunbeam.cf
 
 root * /var/www/site
 file_server
