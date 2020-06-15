@@ -23,7 +23,7 @@ export class SetupService {
     private toPieces(numbers: number[][]): (Piece | undefined)[][] {
         const pieces: (Piece | undefined)[][] = [];
 
-        this.DEFAULT_SETUP.forEach((numberRow: number[], row: number) => {
+        numbers.forEach((numberRow: number[], row: number) => {
             const pieceRow: (Piece | undefined)[] = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
             numberRow.filter((value) => value !== -1).forEach((rankValue: number, colIndex) => {
                 const color = row < 4 ? Color.Blue : Color.Red;

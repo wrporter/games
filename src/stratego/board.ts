@@ -1,4 +1,3 @@
-import "./board.less";
 import {ImageName, ImageService} from "./image/images.service";
 
 export class Board {

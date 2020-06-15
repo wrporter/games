@@ -3,6 +3,7 @@ import './App.css';
 import {ImageService} from "./stratego/image/images.service";
 import {Game} from "./stratego/game";
 import {SetupService} from "./stratego/setup.service";
+import styles from "./stratego/board.module.scss";
 
 function App() {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -28,7 +29,7 @@ function App() {
             <div style={{marginBottom: 12}}>
                 <button onClick={handleStart}>Start</button>
             </div>
-            <canvas ref={canvasRef} />
+            <canvas className={styles.board} ref={canvasRef} />
         </div>
     );
 }

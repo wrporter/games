@@ -4,7 +4,7 @@
 
     box-shadow: 0 4px 8px rgba(128, 128, 128, 0.71);
     border: 15px solid;
-    border-image: url(src/game/stratego/image/board/wood.jpg) 30 30 stretch;
+    border-image: url(./image/board/wood.jpg) 30 30 stretch;
 
     @media only screen and (max-width : 800px) {
         border: none;
