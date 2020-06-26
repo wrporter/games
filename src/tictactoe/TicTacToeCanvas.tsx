@@ -80,16 +80,11 @@ export default class TicTacToeCanvas {
             for (let col = 0; col < BOARD_SIZE; col++) {
                 let x = col * this.squareLength;
                 let y = row * this.squareLength;
-
-                this.context.beginPath();
-                this.context.rect(x, y, this.squareLength, this.squareLength);
-                this.context.stroke();
+                this.drawSquare(x, y, this.squareLength);
             }
         }
 
-        this.context.beginPath();
-        this.context.rect(0, 0, this.boardLength-1, this.boardLength-1);
-        this.context.stroke();
+        this.drawSquare(0, 0, this.boardLength - 1);
     }
 
     private renderMoves() {
@@ -109,13 +104,26 @@ export default class TicTacToeCanvas {
         });
     }
 
+    private drawSquare(x: number, y: number, length: number) {
+        this.context.beginPath();
+        this.context.rect(x, y, length, length);
+        this.context.stroke();
+    }
+
     private drawX(x: number, y: number) {
         const color = {h: 348, s: 100, l: 51.4};
         const edge = this.squareLength / 10;
         const width = this.squareLength * 0.08;
 
-        this.drawNeonLine(color, width, x + edge, y + edge, x + this.squareLength - edge, y + this.squareLength - edge);
-        this.drawNeonLine(color, width, x + this.squareLength - edge, y + edge, x + edge, y + this.squareLength - edge);
+        const y1 = y + edge;
+        const x2 = x + this.squareLength - edge;
+        const x1 = x + edge;
+        const y2 = y + this.squareLength - edge;
+
+        this.drawShadowLine(color, width, x1, y1, x2, y2);
+        this.drawShadowLine(color, width, x2, y1, x1, y2);
+        this.drawNeonLine(color, width, x1, y1, x2, y2);
+        this.drawNeonLine(color, width, x2, y1, x1, y2);
     }
 
     private drawO(x: number, y: number) {
@@ -128,27 +136,11 @@ export default class TicTacToeCanvas {
 
     private drawNeonCircle(color: ColorHSL, width: number, x: number, y: number, radius: number) {
         const {h, s, l} = color;
-        this.context.shadowColor = `hsl(${h}, ${s}%, ${l}%)`;
+        this.context.shadowColor = `hsl(${h}, ${s}%, ${l + ((100 - l) * 0.2)}%)`;
         this.context.shadowBlur = 10;
 
         this.context.strokeStyle = `hsl(${h}, ${s}%, ${l}%)`;
         this.context.lineWidth = width;
-        this.drawCircle(x, y, radius);
-
-        this.context.strokeStyle = `hsl(${h}, ${s}%, ${l + ((100 - l) * 0.2)}%)`;
-        this.context.lineWidth = width * 0.8;
-        this.drawCircle(x, y, radius);
-
-        this.context.strokeStyle = `hsl(${h}, ${s}%, ${l + ((100 - l) * 0.4)}%)`;
-        this.context.lineWidth = width * 0.6;
-        this.drawCircle(x, y, radius);
-
-        this.context.strokeStyle = `hsl(${h}, ${s}%, ${l + ((100 - l) * 0.6)}%)`;
-        this.context.lineWidth = width * 0.4;
-        this.drawCircle(x, y, radius);
-
-        this.context.strokeStyle = `hsl(${h}, ${s}%, ${l + ((100 - l) * 0.8)}%)`;
-        this.context.lineWidth = width * 0.15;
         this.drawCircle(x, y, radius);
     }
 
@@ -161,27 +153,21 @@ export default class TicTacToeCanvas {
     private drawNeonLine(color: ColorHSL, width: number, x1: number, y1: number, x2: number, y2: number) {
         const {h, s, l} = color;
         this.context.lineCap = 'round';
-        this.context.shadowColor = `hsl(${h}, ${s}%, ${l}%)`;
-        this.context.shadowBlur = 10;
+        this.context.shadowBlur = 0;
 
         this.context.strokeStyle = `hsla(${h}, ${s}%, ${l}%)`;
         this.context.lineWidth = width;
         this.drawLine(x1, y1, x2, y2);
+    }
 
-        this.context.strokeStyle = `hsla(${h}, ${s}%, ${l + ((100 - l) * 0.2)}%)`;
-        this.context.lineWidth = width * 0.8;
-        this.drawLine(x1, y1, x2, y2);
+    private drawShadowLine(color: ColorHSL, width: number, x1: number, y1: number, x2: number, y2: number) {
+        const {h, s, l} = color;
+        this.context.lineCap = 'round';
+        this.context.shadowColor = `hsl(${h}, ${s}%, ${l + ((100 - l) * 0.2)}%)`;
+        this.context.shadowBlur = 10;
 
-        this.context.strokeStyle = `hsla(${h}, ${s}%, ${l + ((100 - l) * 0.4)}%)`;
-        this.context.lineWidth = width * 0.6;
-        this.drawLine(x1, y1, x2, y2);
-
-        this.context.strokeStyle = `hsla(${h}, ${s}%, ${l + ((100 - l) * 0.6)}%)`;
-        this.context.lineWidth = width * 0.4;
-        this.drawLine(x1, y1, x2, y2);
-
-        this.context.strokeStyle = `hsla(${h}, ${s}%, ${l + ((100 - l) * 0.8)}%)`;
-        this.context.lineWidth = width * 0.1;
+        this.context.strokeStyle = `hsla(${h}, ${s}%, ${l}%)`;
+        this.context.lineWidth = width;
         this.drawLine(x1, y1, x2, y2);
     }
 
