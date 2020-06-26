@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from 'react-modal';
-import useSound from 'use-sound';
+import {Howl} from 'howler';
 import TicTacToeCanvas from "./TicTacToeCanvas";
 import styles from "./tic-tac-toe.module.scss";
 import {GameResult} from "./TicTacToe";
@@ -8,21 +8,21 @@ import * as music from './audio/music';
 import {finalFantasyVictory} from './audio/victory';
 import {clashClash, laserHit2} from './audio/sounds';
 
-Modal.setAppElement(document.body);
-
-function randomProperty(obj: { [key: string]: string; }) {
-    const keys = Object.keys(obj);
-    return obj[keys[keys.length * Math.random() << 0]];
+function random<T>(array: T[]): T {
+    return array[Math.floor(Math.random() * array.length)];
 }
 
-export default function TicTacToeComponent() {
-    const [song, setSong] = React.useState(randomProperty(music));
-    const options: any = {loop: true};
-    const [playSong, {stop: stopSong}] = useSound(song, options);
-    const [playVictory, {stop: stopVictory}] = useSound(finalFantasyVictory);
+const songs = Object.values(music)
+    .map(song => new Howl({src: song, loop: true}));
+const victory = new Howl({src: finalFantasyVictory});
+const sounds = [
+    new Howl({src: clashClash}),
+    new Howl({src: laserHit2}),
+];
 
-    const [sound, setSound] = React.useState(clashClash);
-    const [playSound] = useSound(sound);
+export default function TicTacToeComponent() {
+    const [song, setSong] = React.useState(random(songs));
+    const [turn, setTurn] = React.useState(0);
 
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const gameRef = React.useRef<TicTacToeCanvas>();
@@ -34,6 +34,8 @@ export default function TicTacToeComponent() {
     };
 
     React.useLayoutEffect(() => {
+        Modal.setAppElement(document.body);
+
         if (canvasRef.current) {
             gameRef.current = new TicTacToeCanvas(canvasRef.current);
         }
@@ -45,15 +47,15 @@ export default function TicTacToeComponent() {
     }, []);
 
     const handleNewGame = () => {
-        stopVictory();
+        victory.stop();
 
         if (gameRef.current) {
             setResult(GameResult.Pending);
             gameRef.current.newGame();
             setModalIsOpen(false);
 
-            setSong(randomProperty(music));
-            playSong();
+            setSong(random(songs));
+            song.play();
         }
     }
 
@@ -61,22 +63,14 @@ export default function TicTacToeComponent() {
         if (gameRef.current && !gameRef.current.gameOver()) {
             const moved = gameRef.current.handleClick(event.nativeEvent);
             if (moved) {
-                playSound();
+                sounds[turn].play();
+                setTurn((turn + 1) % 2);
             }
 
             if (gameRef.current.getGameResult() !== GameResult.Pending) {
-                stopSong();
-                playVictory();
+                victory.play();
                 setResult(gameRef.current.getGameResult());
                 setModalIsOpen(true);
-            }
-
-            if (moved) {
-                if (sound === clashClash) {
-                    setSound(laserHit2);
-                } else {
-                    setSound(clashClash);
-                }
             }
         }
     }

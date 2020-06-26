@@ -78,11 +78,18 @@ export default class TicTacToeCanvas {
 
         for (let row = 0; row < BOARD_SIZE; row++) {
             for (let col = 0; col < BOARD_SIZE; col++) {
+                let x = col * this.squareLength;
+                let y = row * this.squareLength;
+
                 this.context.beginPath();
-                this.context.rect(col * this.squareLength, row * this.squareLength, this.squareLength - 1, this.squareLength - 1);
+                this.context.rect(x, y, this.squareLength, this.squareLength);
                 this.context.stroke();
             }
         }
+
+        this.context.beginPath();
+        this.context.rect(0, 0, this.boardLength-1, this.boardLength-1);
+        this.context.stroke();
     }
 
     private renderMoves() {
