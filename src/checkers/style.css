@@ -1,0 +1,47 @@
+body {
+    background-color:black;
+    background-image:
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+}
+
+.container {
+    left: 50%;
+    margin: -200px 0 0 -400px;
+    position: absolute;
+    top: 50%;
+}
+
+#console {
+    background: #555555;
+    border: 2px solid #239220;
+    color: #16a8b5;
+    float: left;
+    font: 18px consolas;
+    height: 380px;
+    padding: 10px;
+    width: 380px;
+}
+
+#turn {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+#board {
+    border: 2px solid #ababab;
+    float: left;
+    /*border-bottom: 12px outset #ababab;*/
+    /*border-right: 12px outset #ababab;*/
+    /*box-shadow: 5px 5px 5px 5px #333333;*/
+    /*border-style: 18px  inset  #ababab*/
+}
+
+#newGame {
+    display: block;
+}

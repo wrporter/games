@@ -4,6 +4,8 @@ import {ImageService} from "./stratego/image/images.service";
 import {Game} from "./stratego/game";
 import {SetupService} from "./stratego/setup.service";
 import styles from "./stratego/board.module.scss";
+import Checkers from "./checkers/Checkers";
+import TicTacToeComponent from "./tictactoe/TicTacToeComponent";
 
 function App() {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -25,11 +27,21 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Stratego</h1>
-            <div style={{marginBottom: 12}}>
-                <button onClick={handleStart}>Start</button>
+            {/*<div className="stars"/>*/}
+            {/*<div className="twinkling"/>*/}
+            {/*<div className="clouds"/>*/}
+
+            <div className="games">
+                <TicTacToeComponent/>
+
+                {/*<h1>Stratego</h1>*/}
+                {/*<div style={{marginBottom: 12}}>*/}
+                {/*    <button onClick={handleStart}>Start</button>*/}
+                {/*</div>*/}
+                {/*<canvas className={styles.board} ref={canvasRef} />*/}
+
+                {/*<Checkers />*/}
             </div>
-            <canvas className={styles.board} ref={canvasRef} />
         </div>
     );
 }

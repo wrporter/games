@@ -13,10 +13,13 @@
     "@types/node": "^12.12.44",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "howler": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "react-scripts": "3.4.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "use-sound": "^1.0.2"
   },
   "scripts": {
     "build": "react-scripts build",
@@ -44,6 +47,8 @@
     ]
   },
   "devDependencies": {
+    "@types/howler": "^2.2.1",
+    "@types/react-modal": "^3.10.6",
     "node-sass": "^4.14.1"
   }
 }
