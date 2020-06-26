@@ -8,8 +8,8 @@ import * as music from './audio/music';
 import {finalFantasyVictory} from './audio/victory';
 import {clashClash, laserHit2} from './audio/sounds';
 
-function random<T>(array: T[]): T {
-    return array[Math.floor(Math.random() * array.length)];
+function random(size: number) {
+    return Math.floor(Math.random() * size);
 }
 
 const songs = Object.values(music)
@@ -21,8 +21,8 @@ const sounds = [
 ];
 
 export default function TicTacToeComponent() {
-    const [song, setSong] = React.useState(random(songs));
-    const [turn, setTurn] = React.useState(0);
+    let songTrack = songs[random(songs.length)];
+    let turn = 0;
 
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const gameRef = React.useRef<TicTacToeCanvas>();
@@ -54,8 +54,8 @@ export default function TicTacToeComponent() {
             gameRef.current.newGame();
             setModalIsOpen(false);
 
-            setSong(random(songs));
-            song.play();
+            songTrack = songs[random(songs.length)];
+            songTrack.play();
         }
     }
 
@@ -64,10 +64,11 @@ export default function TicTacToeComponent() {
             const moved = gameRef.current.handleClick(event.nativeEvent);
             if (moved) {
                 sounds[turn].play();
-                setTurn((turn + 1) % 2);
+                turn = (turn + 1) % 2;
             }
 
             if (gameRef.current.getGameResult() !== GameResult.Pending) {
+                songTrack.stop();
                 victory.play();
                 setResult(gameRef.current.getGameResult());
                 setModalIsOpen(true);
