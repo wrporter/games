@@ -21,7 +21,6 @@ const sounds = [
 ];
 
 export default function TicTacToeComponent() {
-    let songTrack = songs[random(songs.length)];
     let turn = 0;
 
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -54,8 +53,7 @@ export default function TicTacToeComponent() {
             gameRef.current.newGame();
             setModalIsOpen(false);
 
-            songTrack = songs[random(songs.length)];
-            songTrack.play();
+            songs[random(songs.length)].play();
         }
     }
 
@@ -68,7 +66,7 @@ export default function TicTacToeComponent() {
             }
 
             if (gameRef.current.getGameResult() !== GameResult.Pending) {
-                songTrack.stop();
+                songs.forEach(song => song.stop());
                 victory.play();
                 setResult(gameRef.current.getGameResult());
                 setModalIsOpen(true);
