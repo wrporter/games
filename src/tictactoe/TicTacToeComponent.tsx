@@ -65,7 +65,7 @@ export default function TicTacToeComponent() {
                 turn = (turn + 1) % 2;
             }
 
-            if (gameRef.current.getGameResult() !== GameResult.Pending) {
+            if (gameRef.current.gameOver()) {
                 songs.forEach(song => song.stop());
                 victory.play();
                 setResult(gameRef.current.getGameResult());

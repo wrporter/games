@@ -34,7 +34,7 @@ export default class TicTacToeCanvas {
         const row = Math.floor(y / this.squareLength);
         const col = Math.floor(x / this.squareLength);
 
-        if (this.ticTacToe.move(row, col)) {
+        if (this.ticTacToe.takeTurn(row, col)) {
             this.render();
             return true;
         }
@@ -42,11 +42,11 @@ export default class TicTacToeCanvas {
     }
 
     gameOver() {
-        return this.ticTacToe.getGameResult() !== GameResult.Pending
+        return this.ticTacToe.getState().result !== GameResult.Pending
     }
 
     getGameResult() {
-        return this.ticTacToe.getGameResult();
+        return this.ticTacToe.getState().result;
     }
 
     render() {
@@ -88,7 +88,7 @@ export default class TicTacToeCanvas {
     }
 
     private renderMoves() {
-        const board = this.ticTacToe.getBoard();
+        const board = this.ticTacToe.getState().board;
 
         board.forEach((_, row) => {
             board[row].forEach((value, column) => {

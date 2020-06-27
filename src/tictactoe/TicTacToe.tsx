@@ -11,6 +11,15 @@ export enum GameResult {
     Draw = 'Draw',
 }
 
+export interface GameState {
+    result: GameResult;
+    board: Mark[][];
+}
+
+function deepClone<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
+}
+
 export default class TicTacToe {
     private readonly board: Mark[][];
     private turn: Mark.X | Mark.O;
@@ -28,7 +37,7 @@ export default class TicTacToe {
         this.gameResult = GameResult.Pending;
     }
 
-    move(row: number, column: number): boolean {
+    takeTurn(row: number, column: number): boolean {
         if (!this.isAlreadyMarked(row, column)) {
             this.moveCount++;
             this.board[row][column] = this.turn;
@@ -39,12 +48,11 @@ export default class TicTacToe {
         return false;
     }
 
-    getGameResult(): GameResult {
-        return this.gameResult;
-    }
-
-    getBoard(): Mark[][] {
-        return this.board;
+    getState(): GameState {
+        return {
+            result: this.gameResult,
+            board: deepClone(this.board),
+        };
     }
 
     private getGameResultForMove(row: number, column: number): GameResult {
