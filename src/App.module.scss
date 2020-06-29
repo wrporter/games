@@ -2,22 +2,41 @@
     margin: 0;
 }
 
-body {
-    background: #000 url(./stars.png) repeat top center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+:global(html) {
+    height: 100%;
+}
+
+:global(body) {
+    height: 100%;
+}
+
+:global(#root) {
+    height: 100%;
 }
 
 .App {
-    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    background: #121212 url(./stars.png) repeat top center;
     font-family: 'lato', sans-serif;
     color: #ffffff;
 }
 
-.games {
-    z-index: 5;
+.header {
+    min-height: 60px;
+    background: #222222;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
 }
 
 @keyframes move-twink-back {

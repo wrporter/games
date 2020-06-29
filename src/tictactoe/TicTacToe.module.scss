@@ -1,0 +1,50 @@
+.game {
+  display: flex;
+  flex-grow: 1;
+}
+
+.result {
+  color: #239220;
+}
+
+.gameContainer {
+  display: flex;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.canvasContainer {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+
+  user-select: none;
+  box-shadow: 0 0 8px 8px rgba(255, 255, 255, 0.3);
+}
+
+.controlPane {
+  min-width: 300px;
+  padding: 20px;
+}
+
+@media only screen and (max-width : 767px) {
+  .game {
+    flex-direction: column;
+  }
+
+  .gameContainer {
+    padding: 20px 5px 5px 5px;
+  }
+
+  .controlPane {
+    padding: 5px;
+  }
+}

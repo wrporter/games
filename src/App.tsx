@@ -1,9 +1,8 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.scss';
 import {ImageService} from "./stratego/image/images.service";
 import {Game} from "./stratego/game";
 import {SetupService} from "./stratego/setup.service";
-import styles from "./stratego/board.module.scss";
 import Checkers from "./checkers/Checkers";
 import TicTacToeComponent from "./tictactoe/TicTacToeComponent";
 
@@ -26,12 +25,16 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <div className={styles.App}>
             {/*<div className="stars"/>*/}
             {/*<div className="twinkling"/>*/}
             {/*<div className="clouds"/>*/}
 
-            <div className="games">
+            <div className={styles.header}>
+                Tic Tac Toe
+            </div>
+
+            <div className={styles.content}>
                 <TicTacToeComponent/>
 
                 {/*<h1>Stratego</h1>*/}

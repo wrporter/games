@@ -57,15 +57,15 @@ export default class TicTacToeCanvas {
     }
 
     private resize() {
-        const displayWidth = window.innerWidth;
-        const displayHeight = window.innerHeight;
-        const length = (displayHeight < displayWidth ? displayHeight : displayWidth) * 0.9;
+        const displayWidth = this.canvas.clientWidth;
+        const displayHeight = this.canvas.clientHeight;
+        console.log(this.canvas.width, this.canvas.height, displayWidth, displayHeight);
 
-        if (this.canvas.width !== length) {
-            this.canvas.width = length;
-            this.canvas.height = length;
+        if (this.canvas.width !== displayWidth || this.canvas.height !== displayHeight) {
+            this.canvas.width = displayWidth;
+            this.canvas.height = displayHeight;
 
-            this.boardLength = length;
+            this.boardLength = displayWidth;
             this.squareLength = this.boardLength / BOARD_SIZE;
         }
     }
@@ -179,7 +179,6 @@ export default class TicTacToeCanvas {
     }
 
     private clearScreen() {
-        this.context.fillStyle = 'black';
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }

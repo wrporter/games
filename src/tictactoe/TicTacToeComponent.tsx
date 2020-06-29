@@ -1,12 +1,12 @@
 import React from "react";
-import Modal from 'react-modal';
 import {Howl} from 'howler';
 import TicTacToeCanvas from "./TicTacToeCanvas";
-import styles from "./tic-tac-toe.module.scss";
+import styles from "./TicTacToe.module.scss";
 import {GameResult} from "./TicTacToe";
 import * as music from './audio/music';
 import {finalFantasyVictory} from './audio/victory';
 import {clashClash, laserHit2} from './audio/sounds';
+import {Modal, ModalBody, ModalFooter, ModalHeader} from "../ReactModal";
 
 function random(size: number) {
     return Math.floor(Math.random() * size);
@@ -23,25 +23,37 @@ const sounds = [
 export default function TicTacToeComponent() {
     let turn = 0;
 
+    const canvasContainerRef = React.useRef<HTMLDivElement>(null);
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const gameRef = React.useRef<TicTacToeCanvas>();
     const [result, setResult] = React.useState(GameResult.Pending);
     const [modalIsOpen, setModalIsOpen] = React.useState(true);
 
-    const handleRender = () => {
-        gameRef.current?.render();
-    };
+    function resize() {
+        if (canvasRef.current && canvasContainerRef.current) {
+            const height = canvasContainerRef.current.clientHeight;
+            const width = canvasContainerRef.current.clientWidth;
+            let length = width;
+            if (height < width) {
+                length = height;
+            }
+            console.log('container', height, width)
+            canvasRef.current.style.height = `${length}px`;
+            canvasRef.current.style.width = `${length}px`;
+
+            gameRef.current?.render();
+        }
+    }
 
     React.useLayoutEffect(() => {
-        Modal.setAppElement(document.body);
-
-        if (canvasRef.current) {
+        if (canvasRef.current && canvasContainerRef.current) {
+            resize();
             gameRef.current = new TicTacToeCanvas(canvasRef.current);
         }
 
-        window.addEventListener('resize', handleRender);
+        window.addEventListener('resize', resize);
         return () => {
-            window.removeEventListener('resize', handleRender);
+            window.removeEventListener('resize', resize);
         }
     }, []);
 
@@ -75,14 +87,10 @@ export default function TicTacToeComponent() {
     }
 
     return (
-        <div>
-            <Modal
-                isOpen={modalIsOpen}
-                className={styles.modal}
-                overlayClassName={styles.modalOverlay}
-            >
-                <div className={styles.modalHeader}>Tic Tac Toe</div>
-                <div className={styles.modalBody}>
+        <div className={styles.game}>
+            <Modal isOpen={modalIsOpen}>
+                <ModalHeader>Tic Tac Toe</ModalHeader>
+                <ModalBody>
                     {result !== GameResult.Pending ? (
                         <div className={styles.result}>
                             {result === GameResult.Draw && 'Draw!'}
@@ -90,13 +98,21 @@ export default function TicTacToeComponent() {
                             {result === GameResult.OWin && 'O Wins!'}
                         </div>
                     ) : <div>Let's play!</div>}
-                </div>
-                <div className={styles.modalFooter}>
+                </ModalBody>
+                <ModalFooter>
                     <button onClick={handleNewGame}>New Game</button>
-                </div>
+                </ModalFooter>
             </Modal>
 
-            <canvas className={styles.canvas} ref={canvasRef} onClick={handleClick}/>
+            <div className={styles.gameContainer}>
+                <div ref={canvasContainerRef} className={styles.canvasContainer}>
+                    <canvas className={styles.canvas} ref={canvasRef} onClick={handleClick} />
+                </div>
+            </div>
+
+            <div className={styles.controlPane}>
+                Control pane
+            </div>
         </div>
     );
 }
