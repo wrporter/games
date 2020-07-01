@@ -1,6 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 import styles from "./Modal.module.scss";
+import {Box} from "@material-ui/core";
 
 ReactModal.setAppElement(document.body);
 
@@ -24,7 +25,7 @@ type ModalHeaderProps = {
 
 export function ModalHeader({children}: ModalHeaderProps) {
     return (
-        <div className={styles.header}>{children}</div>
+        <Box bgcolor="background.paper" className={styles.header}>{children}</Box>
     );
 }
 
@@ -34,7 +35,7 @@ type ModalBodyProps = {
 
 export function ModalBody({children}: ModalBodyProps) {
     return (
-        <div className={styles.body}>{children}</div>
+        <Box bgcolor="background.paper" className={styles.body}>{children}</Box>
     );
 }
 
@@ -44,6 +45,6 @@ type ModalFooterProps = {
 
 export function ModalFooter({children}: ModalFooterProps) {
     return (
-        <div className={styles.footer}>{children}</div>
+        <Box bgcolor="background.paper" className={styles.footer}>{children}</Box>
     );
 }

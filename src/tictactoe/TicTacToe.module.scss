@@ -30,21 +30,28 @@
   box-shadow: 0 0 8px 8px rgba(255, 255, 255, 0.3);
 }
 
-.controlPane {
-  min-width: 300px;
-  padding: 20px;
+@media only screen and (min-width : 960px) {
+  .bottomBar {
+    display: none;
+  }
 }
 
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width : 959px) {
   .game {
     flex-direction: column;
   }
 
   .gameContainer {
-    padding: 20px 5px 5px 5px;
+    padding: 20px 5px;
   }
 
   .controlPane {
-    padding: 5px;
+    padding: 10px;
+    border-left: none;
+    border-top: 1px solid #3e2800;
+  }
+
+  .sideBar {
+    display: none;
   }
 }

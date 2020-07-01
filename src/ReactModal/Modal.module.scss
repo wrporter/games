@@ -13,7 +13,6 @@
   padding: 0;
 
   position: absolute;
-  border: 1px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255);
   overflow: auto;
   border-radius: 4px;
@@ -32,15 +31,15 @@
 .header {
   font-size: 20px;
   font-weight: bold;
-  padding: 20px;
-  border-bottom: 1px solid #eeeeee;
+  padding: 10px 20px;
 }
 
 .body {
-  padding: 20px;
+  padding: 10px 20px;
 }
 
 .footer {
-  padding: 20px;
-  border-top: 1px solid #eeeeee;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px 20px;
 }

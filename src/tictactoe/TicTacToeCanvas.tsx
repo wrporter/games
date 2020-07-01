@@ -59,7 +59,6 @@ export default class TicTacToeCanvas {
     private resize() {
         const displayWidth = this.canvas.clientWidth;
         const displayHeight = this.canvas.clientHeight;
-        console.log(this.canvas.width, this.canvas.height, displayWidth, displayHeight);
 
         if (this.canvas.width !== displayWidth || this.canvas.height !== displayHeight) {
             this.canvas.width = displayWidth;

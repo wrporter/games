@@ -5,8 +5,18 @@ import {Game} from "./stratego/game";
 import {SetupService} from "./stratego/setup.service";
 import Checkers from "./checkers/Checkers";
 import TicTacToeComponent from "./tictactoe/TicTacToeComponent";
+import {AppBar, Box, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+    bar: {
+        backgroundColor: '#333333',
+        color: theme.palette.text.primary,
+    },
+}));
 
 function App() {
+    const classes = useStyles();
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const game = React.useRef<Game>();
 
@@ -25,16 +35,20 @@ function App() {
     };
 
     return (
-        <div className={styles.App}>
+        <Box className={styles.App}>
             {/*<div className="stars"/>*/}
             {/*<div className="twinkling"/>*/}
             {/*<div className="clouds"/>*/}
 
-            <div className={styles.header}>
-                Tic Tac Toe
-            </div>
+            <AppBar position="static" className={classes.bar} color="primary">
+                <Toolbar>
+                    <Typography variant="h6">
+                        Tic Tac Toe
+                    </Typography>
+                </Toolbar>
+            </AppBar>
 
-            <div className={styles.content}>
+            <Box className={styles.content}>
                 <TicTacToeComponent/>
 
                 {/*<h1>Stratego</h1>*/}
@@ -44,8 +58,8 @@ function App() {
                 {/*<canvas className={styles.board} ref={canvasRef} />*/}
 
                 {/*<Checkers />*/}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }
 
