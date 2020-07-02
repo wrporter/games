@@ -20,7 +20,7 @@ function deepClone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
 }
 
-export default class TicTacToe {
+export default class Model {
     private readonly board: Mark[][];
     private turn: Mark.X | Mark.O;
     private moveCount: number;

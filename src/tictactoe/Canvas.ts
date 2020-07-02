@@ -1,4 +1,4 @@
-import TicTacToe, {GameResult, Mark} from "./TicTacToe";
+import Model, {GameResult, Mark} from "./Model";
 
 interface ColorHSL {
     h: number,
@@ -8,10 +8,10 @@ interface ColorHSL {
 
 const BOARD_SIZE = 3;
 
-export default class TicTacToeCanvas {
+export default class Canvas {
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
-    private ticTacToe: TicTacToe = new TicTacToe();
+    private ticTacToe: Model = new Model();
     private boardLength: number = 0;
     private squareLength: number = 0;
 
@@ -23,7 +23,7 @@ export default class TicTacToeCanvas {
     }
 
     newGame() {
-        this.ticTacToe = new TicTacToe();
+        this.ticTacToe = new Model();
         this.render();
     }
 

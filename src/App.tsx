@@ -4,7 +4,7 @@ import {ImageService} from "./stratego/image/images.service";
 import {Game} from "./stratego/game";
 import {SetupService} from "./stratego/setup.service";
 import Checkers from "./checkers/Checkers";
-import TicTacToeComponent from "./tictactoe/TicTacToeComponent";
+import TicTacToe from "./tictactoe/Game";
 import {AppBar, Box, IconButton, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -49,7 +49,7 @@ function App() {
             </AppBar>
 
             <Box className={styles.content}>
-                <TicTacToeComponent/>
+                <TicTacToe />
 
                 {/*<h1>Stratego</h1>*/}
                 {/*<div style={{marginBottom: 12}}>*/}
