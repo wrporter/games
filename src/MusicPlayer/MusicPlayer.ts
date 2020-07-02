@@ -1,4 +1,4 @@
-import {Howl} from "howler";
+import {Howl, Howler} from "howler";
 import * as music from './audio/music';
 
 function random(size: number) {
@@ -6,14 +6,19 @@ function random(size: number) {
 }
 
 export default class MusicPlayer {
+    private readonly songs: Howl[];
+    private song: Howl;
     private track: number;
-    private songs: Howl[];
     private _isPlaying: boolean;
 
     constructor() {
         this.songs = Object.values(music)
-            .map(song => new Howl({src: song, onend: () => this.playNext()}));
+            .map(song => new Howl({
+                src: song,
+                onend: () => this.playNext(),
+            }));
         this.track = random(this.songs.length);
+        this.song = this.songs[this.track];
         this._isPlaying = false;
     }
 
@@ -24,17 +29,18 @@ export default class MusicPlayer {
     play() {
         if (!this._isPlaying) {
             this._isPlaying = true;
-            this.songs[this.track].play();
+            this.song.play();
         }
     }
 
     pause() {
         this._isPlaying = false;
-        this.songs[this.track].pause();
+        this.song.pause();
     }
 
     private playNext() {
         this.track = this.track + 1 % this.songs.length;
+        this.song = this.songs[this.track];
         this.play();
     }
 }

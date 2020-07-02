@@ -15,8 +15,8 @@ import {
     ListItemText,
 } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import MusicOffIcon from '@material-ui/icons/MusicOff';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "../ReactModal";
 import CanvasComponent from "./CanvasComponent";
 import {TicTacToeContextProvider} from "./TicTacToeContext";
@@ -25,7 +25,7 @@ import EventEmitter from "./EventEmitter";
 const victory = new Howl({src: finalFantasyVictory});
 
 export default function Game() {
-    const [playingMusic, setPlayingMusic] = React.useState(true);
+    const [playingMusic, setPlayingMusic] = React.useState(false);
     const [result, setResult] = React.useState(GameResult.Pending);
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const musicPlayer = React.useMemo(() => new MusicPlayer(), []);
@@ -52,7 +52,7 @@ export default function Game() {
         setResult(GameResult.Pending);
     };
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         if (playingMusic) {
             musicPlayer.play();
         } else {
@@ -87,8 +87,8 @@ export default function Game() {
                     <BottomNavigation showLabels>
                         <BottomNavigationAction label="New Game" icon={<AddIcon/>} onClick={handleNewGame}/>
                         <BottomNavigationAction
-                            label={playingMusic ? "Stop Music" : "Play Music"}
-                            icon={playingMusic ? <MusicNoteIcon/> : <MusicOffIcon/>}
+                            label={playingMusic ? "Pause Music" : "Play Music"}
+                            icon={playingMusic ? <PauseIcon/> : <PlayArrowIcon/>}
                             onClick={() => setPlayingMusic(!playingMusic)}
                         />
                     </BottomNavigation>
@@ -104,9 +104,9 @@ export default function Game() {
                         </ListItem>
                         <ListItem button onClick={() => setPlayingMusic(!playingMusic)}>
                             <ListItemIcon>
-                                {playingMusic ? <MusicNoteIcon/> : <MusicOffIcon/>}
+                                {playingMusic ? <PauseIcon/> : <PlayArrowIcon/>}
                             </ListItemIcon>
-                            <ListItemText primary={playingMusic ? "Stop Music" : "Play Music"}/>
+                            <ListItemText primary={playingMusic ? "Pause Music" : "Play Music"}/>
                         </ListItem>
                     </List>
                 </Box>
