@@ -50,9 +50,14 @@ export default function CanvasComponent({onGameEnd}: TicTacToeComponentProps) {
     }, []);
 
     React.useEffect(() => {
-        emitter.on('new', () => {
+        const newGame = () => {
             gameRef.current?.newGame();
-        });
+        };
+        emitter.on('new', newGame);
+
+        return () => {
+            emitter.removeListener('new', newGame)
+        }
     }, [emitter]);
 
     const handleClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {

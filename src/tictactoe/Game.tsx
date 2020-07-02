@@ -25,17 +25,23 @@ import EventEmitter from "./EventEmitter";
 const victory = new Howl({src: finalFantasyVictory});
 
 export default function Game() {
-    const [playingMusic, setPlayingMusic] = React.useState(false);
+    const [playingMusic, setPlayingMusic] = React.useState(true);
     const [result, setResult] = React.useState(GameResult.Pending);
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const musicPlayer = React.useMemo(() => new MusicPlayer(), []);
     const emitter = React.useMemo(() => new EventEmitter(), []);
 
     const handleCloseModal = () => {
         victory.stop();
         setModalIsOpen(false);
+
+        if (playingMusic) {
+            musicPlayer.play();
+        }
     }
 
     const handleGameEnd = (result: GameResult) => {
+        musicPlayer.pause();
         victory.play();
         setResult(result);
         setModalIsOpen(true);
@@ -44,8 +50,15 @@ export default function Game() {
     const handleNewGame = () => {
         emitter.emit('new');
         setResult(GameResult.Pending);
-
     };
+
+    React.useEffect(() => {
+        if (playingMusic) {
+            musicPlayer.play();
+        } else {
+            musicPlayer.pause();
+        }
+    }, [playingMusic, musicPlayer]);
 
     return (
         <TicTacToeContextProvider emitter={emitter}>
@@ -69,8 +82,6 @@ export default function Game() {
                 </Modal>
 
                 <CanvasComponent onGameEnd={handleGameEnd}/>
-
-                <MusicPlayer playing={playingMusic}/>
 
                 <Box className={styles.bottomBar}>
                     <BottomNavigation showLabels>
