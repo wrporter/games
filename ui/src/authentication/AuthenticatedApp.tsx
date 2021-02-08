@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './App.module.scss';
-import {ImageService} from "./stratego/image/images.service";
-import {Game} from "./stratego/game";
-import {SetupService} from "./stratego/setup.service";
-import Checkers from "./checkers/Checkers";
-import TicTacToe from "./tictactoe/Game";
+import styles from '../App.module.scss';
+import {ImageService} from "../stratego/image/images.service";
+import {Game} from "../stratego/game";
+import {SetupService} from "../stratego/setup.service";
+import Checkers from "../checkers/Checkers";
+import TicTacToe from "../tictactoe/Game";
 import {AppBar, Box, IconButton, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function App() {
+function AuthenticatedApp() {
     const classes = useStyles();
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const game = React.useRef<Game>();
@@ -23,7 +23,7 @@ function App() {
     React.useLayoutEffect(() => {
         if (canvasRef.current) {
             const imageService = ImageService.getInstance();
-            game.current = new Game(canvasRef.current!, new SetupService().getDefaultSetup());
+            game.current = new Game(canvasRef.current, new SetupService().getDefaultSetup());
             imageService.getPromisifiedImages().then(() => {
                 game.current?.draw();
             });
@@ -63,4 +63,4 @@ function App() {
     );
 }
 
-export default App;
+export default AuthenticatedApp;

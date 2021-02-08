@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+  games:
+    container_name: games
+    image: games
+    restart: unless-stopped
+    ports:
+      - 3019:80
+    volumes:
+      - /home/x-wing/www/games/data:/data
+      - /home/x-wing/www/games/config:/config

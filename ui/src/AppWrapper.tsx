@@ -2,6 +2,8 @@ import React from 'react';
 import {ThemeProvider} from "@material-ui/styles";
 import {createMuiTheme, CssBaseline} from "@material-ui/core";
 import App from "./App";
+import {UserProvider} from "./authentication/UserContext";
+import {AuthenticationProvider} from "./authentication/AuthenticationContext";
 
 export default function AppWrapper() {
     const theme = React.useMemo(
@@ -99,7 +101,11 @@ export default function AppWrapper() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
-            <App/>
+            <AuthenticationProvider>
+                <UserProvider>
+                    <App/>
+                </UserProvider>
+            </AuthenticationProvider>
         </ThemeProvider>
     );
 }

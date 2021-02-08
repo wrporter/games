@@ -1,11 +1,32 @@
 version: '3.6'
 services:
-  games:
-    container_name: games
-    image: games
+  games-ui:
+    container_name: games-ui
+    image: games-ui
     restart: unless-stopped
     ports:
-      - 3019:80
+      - 9010:2015
+    environment:
+      - API_HOST=apihost
+    links:
+      - "games-api:apihost"
+  games-api:
+    container_name: games-api
+    image: games-api
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    environment:
+      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
+      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET}
+      - APP_HOST=
+      - SITE_HOST=games.sunbeam.cf
+      - MONGO_HOST=dbhost
+    links:
+      - "mongo:dbhost"
+  mongo:
+    container_name: games-mongo
+    image: mongo
+    restart: unless-stopped
     volumes:
-      - /home/x-wing/www/games/data:/data
-      - /home/x-wing/www/games/config:/config
+      - /home/x-wing/www/games/mongo:/data/db
