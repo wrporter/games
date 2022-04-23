@@ -25,3 +25,4 @@ yarn-error.log*
 .idea
 caddy_config
 caddy_data
+*.iml
