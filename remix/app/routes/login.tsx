@@ -17,7 +17,7 @@ import { validateEmail } from '~/utils';
 
 export const loader: LoaderFunction = async ({ request }) => {
     return await authenticator.isAuthenticated(request, {
-        successRedirect: '/home',
+        successRedirect: '/app/home',
     });
 };
 
@@ -51,7 +51,8 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     return authenticator.authenticate('basic', request, {
-        successRedirect: typeof redirectTo === 'string' ? redirectTo : '/home',
+        successRedirect:
+            typeof redirectTo === 'string' ? redirectTo : '/app/home',
         failureRedirect: '/login',
         throwOnError: true,
     });
@@ -66,7 +67,7 @@ export const meta: MetaFunction = () => {
 
 export default function LoginPage() {
     const [searchParams] = useSearchParams();
-    const redirectTo = searchParams.get('redirectTo') || '/home';
+    const redirectTo = searchParams.get('redirectTo') || '/app/home';
     const actionData = useActionData() as ActionData;
     const emailRef = React.useRef<HTMLInputElement>(null);
     const passwordRef = React.useRef<HTMLInputElement>(null);

@@ -12,5 +12,5 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const loader: LoaderFunction = async () => {
-    return redirect('/home');
+    return redirect('/app/home');
 };

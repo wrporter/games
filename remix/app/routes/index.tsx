@@ -28,7 +28,7 @@ export default function Index() {
                             </p>
                             <div className="mt-10 flex justify-center">
                                 {user ? (
-                                    <Button as={Link} to="/home">
+                                    <Button as={Link} to="/app/home">
                                         View your items
                                     </Button>
                                 ) : (

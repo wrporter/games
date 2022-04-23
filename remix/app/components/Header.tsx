@@ -11,7 +11,7 @@ export default function Header() {
     return (
         <header className="flex items-center justify-between border-b border-b-gray-200 bg-white p-3">
             <Link
-                to={user ? '/home' : '/'}
+                to={user ? '/app/home' : '/'}
                 // to="/"
                 className="flex items-center space-x-2"
             >
@@ -40,7 +40,7 @@ export default function Header() {
                             )}
                         </MenuButton>
                         <MenuList>
-                            <MenuLink as={Link} to="/profile">
+                            <MenuLink as={Link} to="/app/profile">
                                 Profile
                             </MenuLink>
                             <MenuItem

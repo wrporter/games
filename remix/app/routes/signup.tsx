@@ -17,7 +17,7 @@ import { authenticator } from '~/auth.server';
 
 export const loader: LoaderFunction = async ({ request }) => {
     return await authenticator.isAuthenticated(request, {
-        successRedirect: '/home',
+        successRedirect: '/app/home',
     });
 };
 
@@ -75,14 +75,15 @@ export const action: ActionFunction = async ({ request }) => {
     await createUser(displayName, email, password);
 
     return authenticator.authenticate('basic', request, {
-        successRedirect: typeof redirectTo === 'string' ? redirectTo : '/home',
+        successRedirect:
+            typeof redirectTo === 'string' ? redirectTo : '/app/home',
     });
 
     // return createUserSession({
     //     request,
     //     userId: user.id,
     //     remember: false,
-    //     redirectTo: typeof redirectTo === 'string' ? redirectTo : '/home',
+    //     redirectTo: typeof redirectTo === 'string' ? redirectTo : '/app/home',
     // });
 };
 
